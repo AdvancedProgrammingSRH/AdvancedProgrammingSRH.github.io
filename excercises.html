@@ -1,0 +1,589 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Exercises - Advanced Programming</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Exercises</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="generic.html">Module</a></li>
+								<li><a href="elements.html">Tools</a></li>
+								<li><a href="excercises.html">Exercises</a></li>
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Exercises</h2>
+								<p>List of Exercises</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+<div class="module">
+        <h2>1. Introduction to Programming in Python</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>An Algorithm is the logical blueprint (finite, unambiguous steps) for solving a problem, independent of any language. The Program is the source code implementation of that algorithm. Syntax is the language's grammar (rules); Semantics is the code's meaning (logic). Python uses an Interpreter (specifically a Python Virtual Machine that executes intermediate bytecode), which translates and executes code line-by-line at runtime, making development rapid but execution typically slower than compiled languages.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>After installing Python, use the interpreter in interactive mode (typing <code>python</code> in your terminal) to run a line of code immediately.</li>
+                <li>Write a program that takes your name as input and prints a personalized greeting along with a calculation of your birth year.</li>
+                <li>Investigate how Python's bytecode (the <code>.pyc</code> files) acts as an intermediate step between source code and machine code.</li>
+            </ol>
+        </div>
+    </div>
+
+	<div class="module">
+        <h2>2. Tools for Program Development</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>IDEs (like PyCharm) provide advanced features like context-aware code completion and integrated debugging, enhancing developer productivity far beyond a simple text editor. Git is a distributed version control system that tracks the history of every line of code; GitHub is the popular cloud platform for collaborating on and hosting Git repositories. Virtual environments isolate project dependencies, ensuring project A doesn't break when installing a new version needed by project B.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>Configure your IDE (VS Code/PyCharm) to use a specific Python virtual environment as its interpreter for a new project.</li>
+                <li>After pushing your script to GitHub, practice the commit and push workflow by making a small change, committing it with a descriptive message, and pushing the new version.</li>
+                <li>Create a virtual environment, install the Pandas library (not just NumPy), and then confirm it's not available outside that environment.</li>
+            </ol>
+        </div>
+    </div>
+	<div class="module">
+        <h2>3. Data Types, Operators, and Terms</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>Python's Numeric types handle numbers with special consideration for <code>float</code> precision due to binary representation issues. Sequence types (<code>list</code>, <code>tuple</code>) maintain order. Lists are mutable (can change in place), while Tuples are immutable, making them ideal for fixed data. Dictionaries (<code>dict</code>) use hashing on immutable keys to achieve $O(1)$ (constant time) average retrieval speed, making them exceptionally fast for lookups.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>Demonstrate the floating-point precision issue by calculating <code>0.1 + 0.2</code> and explaining why the result isn't exactly <code>0.3</code>.</li>
+                <li>Calculate the volume of a cylinder given a radius $r$ and height $h$, using a combination of arithmetic operators and the <code>float</code> type.</li>
+                <li>Use comparison and logical operators (<code>and</code>, <code>or</code>, <code>not</code>) to check if a user's age is between 18 and 65, inclusive, but not exactly 30.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>4. Input and Output (I/O)</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>The core concept of I/O is the interaction with external resources. The <code>input()</code> function always returns a string, necessitating type casting (e.g., <code>int(input())</code>) for numerical data. The <code>print()</code> function uses arguments like <code>sep</code> (separator) and <code>end</code> (ending character) to control output appearance beyond the default space and newline. f-strings are evaluated at runtime, embedding variable values as the string is constructed.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>Ask the user for their name and preferred greeting (e.g., "Hello,", "Welcome,") and use f-strings to combine the input into a custom message.</li>
+                <li>Compute the sum and product of two numbers input by the user, displaying the results in a single <code>print()</code> statement using the <code>sep</code> argument.</li>
+                <li>Read a monetary value from the user (as a string), convert it to a float, and use f-string formatting to display it rounded to two decimal places and prefixed with a dollar sign.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>5. Flow Control</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>Flow control determines the program's path through conditional execution (<code>if/elif/else</code>) or repetition (loops). The <code>for</code> loop is definite iteration (knows how many times to run, usually over a sequence). The <code>while</code> loop is indefinite iteration (runs until a condition is met). <code>break</code> terminates the entire loop; <code>continue</code> skips only the current iteration.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>Write a program that finds the largest of three numbers using only nested <code>if</code> statements, then simplify it using <code>and</code> and <code>or</code> logical operators.</li>
+                <li>Use a <code>for</code> loop with the <code>range()</code> function and an <code>if</code> statement to print all even numbers between 1 and 50, then rewrite it using a single <code>while</code> loop.</li>
+                <li>Compute the factorial of a user-input number using a <code>for</code> loop, then rewrite it using a <code>while</code> loop, and compare their syntactic clarity.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>6. Program Structures</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>Modular programming involves breaking code into distinct, reusable Modules (<code>.py</code> files). Packages are directories of related modules, essential for structuring large projects and preventing name clashes. Namespaces are mapping systems (like dictionaries) that keep track of names (variables, functions) and the objects they reference, ensuring no ambiguity. Scope (Local, Enclosing, Global, Built-in - LEGB) dictates which namespaces are searched, and in what order, when resolving a variable name.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>Create a module named <code>utils.py</code> with functions for calculating area and perimeter. In your main script, <code>import utils</code> and call one of the functions to demonstrate module usage.</li>
+                <li>Create a folder hierarchy to structure a package with a main file and two sub-modules, and use dot notation (e.g., <code>from package.submodule import func</code>) to call a function.</li>
+                <li>Write a function with a variable named <code>x</code>, and an outer script with a global variable <code>x</code>. Inside the function, print <code>x</code> and explain which scope's <code>x</code> was used based on the LEGB rule.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>7. Functions</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>Functions promote Don't Repeat Yourself (DRY) code by encapsulating logic for reuse. Default arguments (e.g., <code>def func(a=1)</code>) must be defined after non-default arguments. Recursion is a powerful technique for solving problems that can be broken into smaller, identical subproblems, but it requires a careful base case to prevent infinite loops (Stack Overflow). Lambda functions are restricted to a single expression that is returned implicitly, making them concise for simple operations.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>Write a function that computes the average of a list, ensuring it handles the case of an empty list to prevent a ZeroDivisionError (using an <code>if</code> statement).</li>
+                <li>Implement the recursive Fibonacci sequence function, tracing the function calls for <code>fib(4)</code> to clearly illustrate the call stack and the base case.</li>
+                <li>Use <code>filter()</code> with a lambda function to select and return only the odd numbers from a given list of integers.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>8. References and Pointers (Python Context)</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>Python variables are names bound to objects. When you assign <code>b = a</code>, you create a second reference (label) to the exact same object in memory. Mutability (the ability of an object to change in place) is key: changing a mutable object affects all names referencing it, while reassigning an immutable object simply binds the name to a new object. The <code>id()</code> function provides the unique memory address (identity) of an object.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>Initialize a list <code>a = [1, 2]</code> and set <code>b = a</code>. Modify <code>b[0] = 99</code>. Print both <code>a</code> and <code>b</code> to show the reference effect (both changed). Then, start over, use <code>a = b.copy()</code>, modify <code>b</code>, and show that <code>a</code> is now independent.</li>
+                <li>Write a function that takes a list, appends an item to it, and does not return anything. Call the function using a global list and explain why the global list was permanently modified.</li>
+                <li>Demonstrate why <code>1000 is 1000</code> might return <code>False</code> but <code>5 is 5</code> returns <code>True</code> (due to Python's optimization for small, frequently used integers).</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>9. Data Structures</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>Choosing the right data structure is critical for performance. Lists are best for ordered sequences where insertion and deletion are common. Tuples are best for fixed records or when used as dictionary keys (because they are immutable and hashable). Sets are optimized for membership testing and removing duplicates quickly. Dictionaries are the primary mapping type, utilizing keys for fast, non-sequential access.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>Store and retrieve student grades in a dictionary where the key is the student ID (an <code>int</code>) and the value is a list of their scores. Write code to add a new score and then print the average for a specific student.</li>
+                <li>Create two sets, one of required courses and one of completed courses. Find the set of courses the student still needs to take (set difference) and the set of all unique courses taken or needed (set union).</li>
+                <li>Implement a Queue (First-In, First-Out) using a list, demonstrating the <code>append()</code> and <code>pop(0)</code> methods, and discuss why using a <code>collections.deque</code> is more efficient for this purpose.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>10. Searching and Sorting</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>Searching finds a target element; Sorting arranges elements in order. Time Complexity measures how the runtime grows with the input size $n$. Linear Search is $O(n)$, while Binary Search is $O(\log n)$, making it exponentially faster for large, sorted data. Simple sorts like Bubble Sort are $O(n^2)$ (quadratic), whereas professional algorithms like Merge Sort and Timsort (used by Python) achieve $O(n \log n)$, which is considered efficient.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>Write a Linear Search function and run it on a list of 1 million numbers, timing the result to find a number at the beginning vs. the end to demonstrate $O(n)$.</li>
+                <li>Implement the Bubble Sort algorithm. Modify your code to count the total number of swaps and comparisons needed to sort a list of 100 randomly generated numbers.</li>
+                <li>Use the built-in <code>list.sort()</code> method on a list of 10,000 strings. Then, write a custom comparison function (key) to sort the same list by string length instead of alphabetical order.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>11. Strings</h2>
+        <div class="theory">
+            <h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+            <p>Python strings are immutable sequences of Unicode characters, allowing them to handle most global languages. Because they are immutable, operations like concatenation (<code>s + "more"</code>) create entirely new string objects. Slicing (<code>s[start:stop:step]</code>) allows for precise extraction of substrings. Methods like <code>.split()</code> and <code>.join()</code> are often used together to parse complex text formats and then reconstruct them.</p>
+        </div>
+        <div class="exercises">
+            <h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+            <ol>
+                <li>Write a program to count vowels in a string, ensuring it handles both upper and lower-case letters.</li>
+                <li>Check if a string is a palindrome (reads the same forwards and backwards) by using negative slicing (<code>[::-1]</code>) for an efficient one-line solution.</li>
+                <li>Given a URL string (e.g., <code>"https://www.google.co.uk/search"</code>), use a combination of <code>.split()</code>, <code>.replace()</code>, and indexing/slicing to extract and print only the root domain name (<code>google</code>).</li>
+            </ol>
+        </div>
+    </div><!--
+									<section>
+										<h3 class="major">Text</h3>
+										<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
+										This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
+										This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
+										<h4>Blockquote</h4>
+										<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
+										<h4>Preformatted</h4>
+										<pre><code>i = 0;
+
+while (!deck.isInOrder()) {
+  print 'Iteration ' + i;
+  deck.shuffle();
+  i++;
+}
+
+print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
+									</section>
+
+									<section>
+										<h3 class="major">Lists</h3>
+										<div class="row">
+											<div class="col-6 col-12-medium">
+												<h4>Unordered</h4>
+												<ul>
+													<li>Dolor pulvinar etiam.</li>
+													<li>Sagittis adipiscing.</li>
+													<li>Felis enim feugiat.</li>
+												</ul>
+												<h4>Alternate</h4>
+												<ul class="alt">
+													<li>Dolor pulvinar etiam.</li>
+													<li>Sagittis adipiscing.</li>
+													<li>Felis enim feugiat.</li>
+												</ul>
+											</div>
+											<div class="col-6 col-12-medium">
+												<h4>Ordered</h4>
+												<ol>
+													<li>Dolor pulvinar etiam.</li>
+													<li>Etiam vel felis viverra.</li>
+													<li>Felis enim feugiat.</li>
+													<li>Dolor pulvinar etiam.</li>
+													<li>Etiam vel felis lorem.</li>
+													<li>Felis enim et feugiat.</li>
+												</ol>
+												<h4>Icons</h4>
+												<ul class="icons">
+													<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+													<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+													<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+													<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+												</ul>
+											</div>
+										</div>
+										<h4>Actions</h4>
+										<div class="row">
+											<div class="col-6 col-12-medium">
+												<ul class="actions">
+													<li><a href="#" class="button primary">Default</a></li>
+													<li><a href="#" class="button">Default</a></li>
+												</ul>
+												<ul class="actions small">
+													<li><a href="#" class="button primary small">Small</a></li>
+													<li><a href="#" class="button small">Small</a></li>
+												</ul>
+												<ul class="actions stacked">
+													<li><a href="#" class="button primary">Default</a></li>
+													<li><a href="#" class="button">Default</a></li>
+												</ul>
+												<ul class="actions stacked small">
+													<li><a href="#" class="button primary small">Small</a></li>
+													<li><a href="#" class="button small">Small</a></li>
+												</ul>
+											</div>
+											<div class="col-6 col-12-medium">
+												<ul class="actions stacked">
+													<li><a href="#" class="button primary fit">Default</a></li>
+													<li><a href="#" class="button fit">Default</a></li>
+												</ul>
+												<ul class="actions stacked small">
+													<li><a href="#" class="button primary small fit">Small</a></li>
+													<li><a href="#" class="button small fit">Small</a></li>
+												</ul>
+											</div>
+										</div>
+										<h4>Pagination</h4>
+										<ul class="pagination">
+											<li><span class="button small disabled">Prev</span></li>
+											<li><a href="#" class="page active">1</a></li>
+											<li><a href="#" class="page">2</a></li>
+											<li><a href="#" class="page">3</a></li>
+											<li><span>&hellip;</span></li>
+											<li><a href="#" class="page">8</a></li>
+											<li><a href="#" class="page">9</a></li>
+											<li><a href="#" class="page">10</a></li>
+											<li><a href="#" class="button small">Next</a></li>
+										</ul>
+									</section>
+
+									<section>
+										<h3 class="major">Table</h3>
+										<h4>Default</h4>
+										<div class="table-wrapper">
+											<table>
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Description</th>
+														<th>Price</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Item One</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Two</td>
+														<td>Vis ac commodo adipiscing arcu aliquet.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Three</td>
+														<td> Morbi faucibus arcu accumsan lorem.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Four</td>
+														<td>Vitae integer tempus condimentum.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Five</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="2"></td>
+														<td>100.00</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+
+										<h4>Alternate</h4>
+										<div class="table-wrapper">
+											<table class="alt">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Description</th>
+														<th>Price</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Item One</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Two</td>
+														<td>Vis ac commodo adipiscing arcu aliquet.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Three</td>
+														<td> Morbi faucibus arcu accumsan lorem.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Four</td>
+														<td>Vitae integer tempus condimentum.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Five</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="2"></td>
+														<td>100.00</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+									</section>
+
+									<section>
+										<h3 class="major">Buttons</h3>
+										<ul class="actions">
+											<li><a href="#" class="button primary">Primary</a></li>
+											<li><a href="#" class="button">Default</a></li>
+										</ul>
+										<ul class="actions">
+											<li><a href="#" class="button large">Large</a></li>
+											<li><a href="#" class="button small">Small</a></li>
+										</ul>
+										<ul class="actions fit">
+											<li><a href="#" class="button fit">Fit</a></li>
+											<li><a href="#" class="button primary fit">Fit</a></li>
+											<li><a href="#" class="button fit">Fit</a></li>
+										</ul>
+										<ul class="actions fit small">
+											<li><a href="#" class="button primary fit small">Fit + Small</a></li>
+											<li><a href="#" class="button fit small">Fit + Small</a></li>
+											<li><a href="#" class="button primary fit small">Fit + Small</a></li>
+										</ul>
+										<ul class="actions">
+											<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
+											<li><a href="#" class="button icon solid fa-download">Icon</a></li>
+										</ul>
+										<ul class="actions">
+											<li><span class="button primary disabled">Disabled</span></li>
+											<li><span class="button disabled">Disabled</span></li>
+										</ul>
+									</section>
+
+									<section>
+										<h3 class="major">Form</h3>
+										<form method="post" action="#">
+											<div class="row gtr-uniform">
+												<div class="col-6 col-12-xsmall">
+													<label for="demo-name">Name</label>
+													<input type="text" name="demo-name" id="demo-name" value="" />
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label for="demo-email">Email</label>
+													<input type="email" name="demo-email" id="demo-email" value="" />
+												</div>
+												<div class="col-12">
+													<label for="demo-category">Category</label>
+													<select name="demo-category" id="demo-category">
+														<option value="">-</option>
+														<option value="1">Manufacturing</option>
+														<option value="1">Shipping</option>
+														<option value="1">Administration</option>
+														<option value="1">Human Resources</option>
+													</select>
+												</div>
+												<div class="col-4 col-12-small">
+													<input type="radio" id="demo-priority-low" name="demo-priority" checked>
+													<label for="demo-priority-low">Low Priority</label>
+												</div>
+												<div class="col-4 col-12-small">
+													<input type="radio" id="demo-priority-normal" name="demo-priority">
+													<label for="demo-priority-normal">Normal Priority</label>
+												</div>
+												<div class="col-4 col-12-small">
+													<input type="radio" id="demo-priority-high" name="demo-priority">
+													<label for="demo-priority-high">High Priority</label>
+												</div>
+												<div class="col-6 col-12-small">
+													<input type="checkbox" id="demo-copy" name="demo-copy">
+													<label for="demo-copy">Email me a copy</label>
+												</div>
+												<div class="col-6 col-12-small">
+													<input type="checkbox" id="demo-human" name="demo-human" checked>
+													<label for="demo-human">Not a robot</label>
+												</div>
+												<div class="col-12">
+													<label for="demo-message">Message</label>
+													<textarea name="demo-message" id="demo-message" rows="6"></textarea>
+												</div>
+												<div class="col-12">
+													<ul class="actions">
+														<li><input type="submit" value="Send Message" class="primary" /></li>
+														<li><input type="reset" value="Reset" /></li>
+													</ul>
+												</div>
+											</div>
+										</form>
+									</section>
+
+									<section>
+										<h3 class="major">Image</h3>
+										<h4>Fit</h4>
+										<div class="box alt">
+											<div class="row gtr-uniform">
+												<div class="col-12"><span class="image fit"><img src="images/pic08.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic05.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic06.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic07.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic07.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic05.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic06.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic06.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic07.jpg" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/pic05.jpg" alt="" /></span></div>
+											</div>
+										</div>
+										<h4>Left &amp; Right</h4>
+										<p><span class="image left"><img src="images/pic01.jpg" alt="" /></span>Morbi mattis mi consectetur tortor elementum, varius pellentesque velit convallis. Aenean tincidunt lectus auctor mauris maximus, ac scelerisque ipsum tempor. Duis vulputate ex et ex tincidunt, quis lacinia velit aliquet. Duis non efficitur nisi, id malesuada justo. Maecenas sagittis felis ac sagittis semper. Curabitur purus leo, tempus sed finibus eget, fringilla quis risus. Maecenas et lorem quis sem varius sagittis et a est. Maecenas iaculis iaculis sem. Donec vel dolor at arcu tincidunt bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce ut aliquet justo. Donec id neque ipsum. Integer eget ultricies odio. Nam vel ex a orci fringilla tincidunt. Aliquam eleifend ligula non velit accumsan cursus. Etiam ut gravida sapien. Morbi mattis mi consectetur tortor elementum, varius pellentesque velit convallis. Aenean tincidunt lectus auctor mauris maximus, ac scelerisque ipsum tempor. Duis vulputate ex et ex tincidunt, quis lacinia velit aliquet. Duis non efficitur nisi, id malesuada justo. Maecenas sagittis felis ac sagittis semper. Curabitur purus leo, tempus sed finibus eget, fringilla quis risus. Maecenas et lorem quis sem varius sagittis et a est. Maecenas iaculis iaculis sem. Donec vel dolor at arcu tincidunt bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce ut aliquet justo. Donec id neque ipsum. Integer eget ultricies odio. Nam vel ex a orci fringilla tincidunt. Aliquam eleifend ligula non velit accumsan cursus. Etiam ut gravida sapien.</p>
+										<p><span class="image right"><img src="images/pic02.jpg" alt="" /></span>Vestibulum ultrices risus velit, sit amet blandit massa auctor sit amet. Sed eu lectus sem. Phasellus in odio at ipsum porttitor mollis id vel diam. Praesent sit amet posuere risus, eu faucibus lectus. Vivamus ex ligula, tempus pulvinar ipsum in, auctor porta quam. Proin nec dui cursus, posuere dui eget interdum. Fusce lectus magna, sagittis at facilisis vitae, pellentesque at etiam. Quisque posuere leo quis sem commodo, vel scelerisque nisi scelerisque. Suspendisse id quam vel tortor tincidunt suscipit. Nullam auctor orci eu dolor consectetur, interdum ullamcorper ante tincidunt. Mauris felis nec felis elementum varius. Nam sapien ante, varius in pulvinar vitae, rhoncus id massa. Donec varius ex in mauris ornare, eget euismod urna egestas. Etiam lacinia tempor ipsum, sodales porttitor justo. Aliquam dolor quam, semper in tortor eu, volutpat efficitur quam. Fusce nec fermentum nisl. Aenean erat diam, tempus aliquet erat. Etiam iaculis nulla ipsum, et pharetra libero rhoncus ut. Phasellus rutrum cursus velit, eget condimentum nunc blandit vel. In at pulvinar lectus. Morbi diam ante, vulputate et imperdiet eget, fermentum non dolor. Ut eleifend sagittis tincidunt. Sed viverra commodo mi, ac rhoncus justo. Duis neque ligula, elementum ut enim vel, posuere finibus justo. Vivamus facilisis maximus nibh quis pulvinar. Quisque hendrerit in ipsum id tellus facilisis fermentum. Proin mauris dui.</p>
+									</section>
+
+								</div>
+							</div>
+
+					</section>
+-->
+				<!-- Footer -->
+					<!-- <section id="footer">
+						<div class="inner">
+							<h2 class="major">Get in touch</h2>
+							<p>Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.</p>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="email" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="4"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+							<ul class="contact">
+								<li class="icon solid fa-home">
+									Untitled Inc<br />
+									1234 Somewhere Road Suite #2894<br />
+									Nashville, TN 00000-0000
+								</li>
+								<li class="icon solid fa-phone">(000) 000-0000</li>
+								<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
+								<li class="icon brands fa-twitter"><a href="#">twitter.com/untitled-tld</a></li>
+								<li class="icon brands fa-facebook-f"><a href="#">facebook.com/untitled-tld</a></li>
+								<li class="icon brands fa-instagram"><a href="#">instagram.com/untitled-tld</a></li>
+							</ul>-->
+							<ul class="copyright">
+								<li>&copy; All rights reserved.</li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
