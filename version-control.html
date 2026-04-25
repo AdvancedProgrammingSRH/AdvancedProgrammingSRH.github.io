@@ -1,0 +1,413 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Version Control - Advanced Programming</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Version Control</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="generic.html">Module</a></li>
+								<li><a href="elements.html">Tools</a></li>
+								<li><a href="excercises.html">Exercises</a></li>
+								<li><a href="version-control.html">Version Control</a></li>							<li><a href="production-line.html">Production Line</a></li>							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Learning Git: The Kitchen Analogy</h2>
+								<p>Version Control</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<div style="text-align: center;">
+										<img src="images/pasta.png" alt="Pasta" style="width: 40%;" />
+									</div>
+
+									<p>Welcome to class. Today we're learning Git, the version control system that powers nearly every software project in the world. Git has a reputation for being intimidating, so we're going to learn it the way I learned to cook: by spending time in the kitchen.</p>
+
+									<p>Every Git concept maps cleanly onto something you already understand if you've ever cooked a meal. By the end of this lesson, you'll know not just <em>what</em> the commands do, but <em>why</em> they exist.</p>
+
+									<h2>Introduction to Version Control: Your First Project Versions</h2>
+
+									<p>Before we dive into the theory, let's put version control into practice. Take the project you've already developed in class, and create <strong>three different versions</strong> of it. Each version should include one of the following changes:</p>
+
+									<ul>
+										<li><strong>Version 1:</strong> Change the speed of one element to 2x faster</li>
+										<li><strong>Version 2:</strong> Change the color of one element to a different color</li>
+										<li><strong>Version 3:</strong> Add the year 2026 to the landing page of your game or as a footnote on the game itself</li>
+									</ul>
+
+									<p>By the end of this lesson, you'll understand how Git makes managing these versions effortless, and how you could have created all three from a single codebase using branches. The manual versioning you're doing right now is exactly what Git was invented to eliminate.</p>
+
+									<hr />
+
+									<h2>Part 1: The Big Idea</h2>
+
+									<p>Imagine you're developing a family recipe for tomato sauce. You make it on Monday, tweak it Tuesday, ruin it Wednesday, and on Thursday you wish you could go back to Tuesday's version. Without a system, you're stuck.</p>
+
+									<p>Git is the system. It's a time machine for your kitchen — a way to take snapshots of your recipe at any moment, label them, branch off and try variations, and confidently come back to any previous version without losing anything.</p>
+
+									<p><strong>The vocabulary we'll use:</strong></p>
+									<ul>
+										<li><strong>Repository (repo)</strong> — your cookbook. The complete history of every recipe and every change.</li>
+										<li><strong>Working directory</strong> — your kitchen counter. The mess of ingredients you're actively cooking with right now.</li>
+										<li><strong>Staging area</strong> — your cutting board. Ingredients you've prepped and decided belong in <em>this</em> dish.</li>
+										<li><strong>Commit</strong> — a finished plate, photographed and added to the cookbook with a date and description.</li>
+										<li><strong>Branch</strong> — a parallel version of the recipe you're experimenting with.</li>
+										<li><strong>Remote</strong> — a shared cookbook in the cloud that your fellow cooks can also read and write to.</li>
+									</ul>
+
+									<p>Hold these in your head. Everything that follows is just verbs operating on these nouns.</p>
+
+									<hr />
+
+									<h2>Part 2: Setting Up the Kitchen</h2>
+
+									<p>Before you cook, you tell Git who's cooking. This identifies you on every dish you commit.</p>
+
+									<pre><code>git config --global user.name "Chef SRH student"
+git config --global user.email "srh-student@kitchen.com"</code></pre>
+
+									<p>Now let's start a new cookbook for our pasta restaurant.</p>
+
+									<pre><code>mkdir nonna-pasta
+cd nonna-pasta
+git init</code></pre>
+
+									<p><code>git init</code> is the moment you walk into an empty kitchen and declare it a working kitchen. Git creates a hidden <code>.git</code> folder — think of it as the head chef's private notebook where every change will be recorded forever.</p>
+
+									<hr />
+
+									<h2>Part 3: Your First Recipe — The Add/Commit Cycle</h2>
+
+									<p>Let's write our first recipe.</p>
+
+									<pre><code>echo "Boil water. Add pasta. Wait 8 minutes." > spaghetti.txt</code></pre>
+
+									<p>You now have an ingredient on the counter. Git sees it but hasn't done anything with it yet. Check the kitchen's status:</p>
+
+									<pre><code>git status</code></pre>
+
+									<p>Git will tell you <code>spaghetti.txt</code> is <strong>untracked</strong> — it's a tomato sitting on your counter, not yet on the cutting board.</p>
+
+									<h3>Step 1: Move it to the cutting board (<code>git add</code>)</h3>
+
+									<pre><code>git add spaghetti.txt</code></pre>
+
+									<p>You've decided this ingredient belongs in the dish. It's now <strong>staged</strong> — on the cutting board, prepped, waiting to be plated.</p>
+
+									<h3>Step 2: Plate the dish (<code>git commit</code>)</h3>
+
+									<pre><code>git commit -m "Add basic spaghetti recipe"</code></pre>
+
+									<p>The commit is the photograph of the finished plate. Git permanently records exactly what was on the cutting board, who cooked it, when, and what you said about it. That message — <code>"Add basic spaghetti recipe"</code> — is the caption under the photo. Future you will thank present you for writing clear captions.</p>
+
+									<p><strong>The mental model that unlocks Git for most beginners:</strong></p>
+
+									<pre><code>Counter (working dir)  →  git add  →  Cutting board (staging)  →  git commit  →  Cookbook (history)</code></pre>
+
+									<p>Three zones, two verbs. That's the whole core loop.</p>
+
+									<hr />
+
+									<h2>Part 4: Editing the Recipe</h2>
+
+									<p>Let's improve our spaghetti.</p>
+
+									<pre><code>echo "Boil salted water. Add pasta. Cook 8 minutes. Drain." > spaghetti.txt</code></pre>
+
+									<p>Run <code>git status</code> and Git will say <code>spaghetti.txt</code> is <strong>modified</strong>. The dish on your counter no longer matches the photograph in the cookbook.</p>
+
+									<p>You have choices:</p>
+
+									<pre><code>git diff                # Show me what changed since the last photograph
+git add spaghetti.txt   # I like the changes, put them on the cutting board
+git commit -m "Salt the water; remember to drain"</code></pre>
+
+									<p>Or, if you decide your changes were a mistake — you accidentally added cinnamon to your tomato sauce — you can throw out the work and revert to the last photograph:</p>
+
+									<pre><code>git restore spaghetti.txt</code></pre>
+
+									<p>This is one of Git's superpowers. <strong>Mistakes aren't permanent.</strong> As long as something has been committed, you can always come home to it.</p>
+
+									<hr />
+
+									<h2>Part 5: Branches — The Experimental Kitchen</h2>
+
+									<p>Here's where Git gets genuinely powerful. Suppose your spaghetti recipe is solid and customers love it. But you want to experiment with a spicy arrabbiata version. You don't want to risk the working recipe.</p>
+
+									<pre><code>git branch arrabbiata        # Create a new experimental kitchen
+git switch arrabbiata        # Move into it</code></pre>
+
+									<p>(Older tutorials use <code>git checkout arrabbiata</code> — same thing, newer syntax is <code>switch</code>.)</p>
+
+									<p>You're now in the arrabbiata kitchen. Anything you cook here is isolated from the main kitchen.</p>
+
+									<pre><code>echo "Boil salted water. Add pasta. Cook 8 minutes. Drain. Add chili oil and crushed red pepper." > spaghetti.txt
+git add spaghetti.txt
+git commit -m "Spicy arrabbiata variant"</code></pre>
+
+									<p>Now switch back to the main kitchen:</p>
+
+									<pre><code>git switch main
+cat spaghetti.txt</code></pre>
+
+									<p>The chili is gone! You're back in the original kitchen with the original recipe, untouched. The arrabbiata version is safely sitting in its own kitchen, waiting for you whenever you want to return.</p>
+
+									<p>This is the most liberating idea in Git: <strong>you can try anything, anywhere, without fear</strong>, because branches are cheap and isolated.</p>
+
+									<hr />
+
+									<h2>Part 6: Merging — Combining Recipes</h2>
+
+									<p>Suppose the arrabbiata is a hit. You want to bring it back into the main menu. You <strong>merge</strong> the experimental kitchen into the main one.</p>
+
+									<pre><code>git switch main
+git merge arrabbiata</code></pre>
+
+									<p>Git takes the changes from the arrabbiata branch and applies them to main. If the changes don't overlap with anything else, the merge happens silently and cleanly.</p>
+
+									<h3>When merges go wrong: the conflict</h3>
+
+									<p>Imagine two cooks both edit <code>spaghetti.txt</code> at the same time on different branches. One adds garlic, the other adds basil, both on the same line. When you merge, Git can't decide which ingredient wins. This is a <strong>merge conflict</strong>.</p>
+
+									<p>Git will mark the file like this:</p>
+
+									<pre><code><<<<<<< HEAD
+Add 3 cloves of garlic.
+=======
+Add 5 leaves of fresh basil.
+>>>>>>> basil-branch</code></pre>
+
+									<p>You — the head chef — open the file, decide what the dish actually needs (probably both!), edit the file to your liking, then:</p>
+
+									<pre><code>git add spaghetti.txt
+git commit -m "Resolve garlic vs basil — use both"</code></pre>
+
+									<p>Conflicts feel scary the first time. They're really just Git asking you to make a judgment call it can't make on its own.</p>
+
+									<hr />
+
+									<h2>Part 7: The Shared Cookbook (Remotes)</h2>
+
+									<p>So far our cookbook lives on one laptop. To collaborate with other cooks, we put a copy on a shared shelf — typically GitHub, GitLab, or Bitbucket. This shared copy is called a <strong>remote</strong>.</p>
+
+									<pre><code>git remote add origin https://github.com/srh-student/nonna-pasta.git
+git push -u origin main</code></pre>
+
+									<p><code>git push</code> sends your local commits up to the shared cookbook. <code>origin</code> is the conventional name for "the main shared copy."</p>
+
+									<p>When a teammate updates the shared cookbook, you bring their changes down with:</p>
+
+									<pre><code>git pull</code></pre>
+
+									<p>Think of pull as walking to the shared shelf, seeing what's new, and copying those recipes into your kitchen.</p>
+
+									<p><strong>The everyday rhythm of working with a team:</strong></p>
+									<ol>
+										<li><code>git pull</code> — get the latest from the shared cookbook</li>
+										<li>Cook (edit files)</li>
+										<li><code>git add</code> and <code>git commit</code> — photograph your changes</li>
+										<li><code>git push</code> — share them back</li>
+									</ol>
+
+									<h3>Cloning someone else's cookbook</h3>
+
+									<p>If you want to start working on an existing project, you don't init — you clone:</p>
+
+									<pre><code>git clone https://github.com/some-chef/famous-pizza.git</code></pre>
+
+									<p>This is photocopying the entire cookbook, including its full history, onto your kitchen counter.</p>
+
+									<hr />
+
+									<h2>Part 8: Looking at the History</h2>
+
+									<p>Your cookbook accumulates dishes over time. To see them:</p>
+
+									<pre><code>git log</code></pre>
+
+									<p>This prints every commit in reverse order — newest dish first. Each entry shows the chef, the date, the message, and a unique ID (a long string of letters and numbers called a <strong>hash</strong>).</p>
+
+									<p>For a more visual version:</p>
+
+									<pre><code>git log --oneline --graph --all</code></pre>
+
+									<p>This shows the full branching history as a tree. You'll see exactly when arrabbiata branched off, when it merged back, and every dish along the way.</p>
+
+									<p>To go back and look at the kitchen exactly as it was at a past commit:</p>
+
+									<pre><code>git checkout &lt;commit-hash&gt;</code></pre>
+
+									<p>Just be aware: this is a read-only visit. If you want to actually start cooking from that point, branch off it.</p>
+
+									<hr />
+
+									<h2>Part 9: A Realistic Workflow Example</h2>
+
+									<p>Let's walk through a full day in the kitchen.</p>
+
+									<pre><code># Start your morning by syncing with the team
+git pull
+
+# Create a branch for today's experiment
+git switch -c lemon-zest-pasta
+
+# Edit the recipe
+echo "Boil salted water. Add pasta. Drain. Toss with butter, parmesan, and lemon zest." > spaghetti.txt
+
+# Stage and commit
+git add spaghetti.txt
+git commit -m "Add lemon zest pasta variation"
+
+# Push the branch to the shared cookbook
+git push -u origin lemon-zest-pasta
+
+# Open a pull request on GitHub asking the head chef to taste-test and merge</code></pre>
+
+									<p>A <strong>pull request</strong> (PR) is a polite letter to the team that says: "I cooked something on my branch. Please taste it, tell me what you think, and if you like it, merge it into the main menu." It's how teams review each other's work before it becomes official.</p>
+
+									<hr />
+
+									<h2>Part 10: The Cheat Sheet</h2>
+
+									<p>Pin this somewhere visible until it's muscle memory.</p>
+
+									<table>
+										<thead>
+											<tr>
+												<th>Command</th>
+												<th>Kitchen meaning</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><code>git init</code></td>
+												<td>Declare an empty room a working kitchen</td>
+											</tr>
+											<tr>
+												<td><code>git status</code></td>
+												<td>Look around — what's on the counter?</td>
+											</tr>
+											<tr>
+												<td><code>git add &lt;file&gt;</code></td>
+												<td>Move an ingredient to the cutting board</td>
+											</tr>
+											<tr>
+												<td><code>git commit -m "..."</code></td>
+												<td>Plate the dish, photograph it, file it in the cookbook</td>
+											</tr>
+											<tr>
+												<td><code>git diff</code></td>
+												<td>Compare the counter to the last photograph</td>
+											</tr>
+											<tr>
+												<td><code>git restore &lt;file&gt;</code></td>
+												<td>Throw out my counter changes; reset to the cookbook</td>
+											</tr>
+											<tr>
+												<td><code>git log</code></td>
+												<td>Read through the cookbook's history</td>
+											</tr>
+											<tr>
+												<td><code>git branch &lt;name&gt;</code></td>
+												<td>Open an experimental kitchen</td>
+											</tr>
+											<tr>
+												<td><code>git switch &lt;name&gt;</code></td>
+												<td>Walk into a different kitchen</td>
+											</tr>
+											<tr>
+												<td><code>git merge &lt;name&gt;</code></td>
+												<td>Bring another kitchen's work into this one</td>
+											</tr>
+											<tr>
+												<td><code>git clone &lt;url&gt;</code></td>
+												<td>Photocopy someone's whole cookbook</td>
+											</tr>
+											<tr>
+												<td><code>git pull</code></td>
+												<td>Bring updates from the shared cookbook to mine</td>
+											</tr>
+											<tr>
+												<td><code>git push</code></td>
+												<td>Send my updates up to the shared cookbook</td>
+											</tr>
+										</tbody>
+									</table>
+
+									<hr />
+
+									<h2>Part 11: Homework</h2>
+
+									<ol>
+										<li>Create a folder called <code>my-recipes</code>. Initialize it as a Git repo.</li>
+										<li>Write a <code>pancakes.txt</code> file with a basic recipe. Commit it with a clear message.</li>
+										<li>Edit it to add chocolate chips. Commit again.</li>
+										<li>Create a branch called <code>vegan</code> and make a vegan version. Commit on that branch.</li>
+										<li>Switch back to main. Confirm the vegan changes aren't there.</li>
+										<li>Merge <code>vegan</code> into main. Look at <code>git log --oneline --graph --all</code> and trace the story.</li>
+										<li>Delete the <code>pancakes.txt</code> file accidentally. Use <code>git restore</code> to bring it back.</li>
+									</ol>
+
+									<p>If you can do all seven without looking anything up, you understand Git better than 80% of working developers.</p>
+
+									<hr />
+
+									<h2>Closing Thought</h2>
+
+									<p>Git rewards patience. The first week feels like learning to use chopsticks left-handed. The second week, things click. By the third week, you'll wonder how anyone ever wrote code without it.</p>
+
+									<p>The kitchen analogy isn't a teaching trick — it's the actual mental model that experienced developers use. Counter, cutting board, cookbook. Add, commit, push. Branches are kitchens. Merges are recipe combinations. Hold onto that and the rest is just syntax.</p>
+
+									<ul class="copyright">
+										<li>&copy; All rights reserved.</li>
+									</ul>
+								</div>
+							</section>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

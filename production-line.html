@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Production Line - Advanced Programming</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Production Line</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="generic.html">Module</a></li>
+								<li><a href="elements.html">Tools</a></li>
+								<li><a href="excercises.html">Exercises</a></li>
+								<li><a href="version-control.html">Version Control</a></li>
+								<li><a href="production-line.html">Production Line</a></li>
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Production Line</h2>
+								<p>Modeling a real factory in Python: Back End logic, Front End visuals, and the HMI in between.</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+<div class="module">
+	<h2>1. Software Architecture: Front End, Back End, and HMI</h2>
+	<div class="theory">
+		<h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+		<div style="text-align: center;">
+			<img src="images/siemhmi.png" alt="Siemens HMI" style="width: 60%;" />
+		</div>
+		<p>Almost every non-trivial program is split into two responsibilities. The <strong>Back End</strong> is the part the user never sees: it holds the data, runs the rules, and makes the decisions. In our case, the back end decides when a defective tip is rejected, when assembly fires, and when a pen is shipped. The <strong>Front End</strong> is the part the user sees and interacts with: text on a screen, buttons, charts, animations. Its only job is to <em>present</em> the back end's state and <em>forward</em> the user's intent back. A clean separation means the same back end can be reused with a web front end, a desktop GUI, or — as in industry — a panel mounted on a machine.</p>
+		<p>An <strong>HMI (Human-Machine Interface)</strong> is the specialized front end used in industrial automation. It is the touchscreen on a factory floor that lets an operator start the line, see how many pens have been shipped, watch live indicators turn green or red, and intervene if something fails. An HMI is not just decoration: it is the operator's window into the back end (often a PLC or SCADA system) and the operator's only safe channel to influence it. Three rules govern good HMI design: show only what the operator needs <em>right now</em>, make abnormal states visually unmistakable, and never let the screen lie about the state of the machine.</p>
+		<p>Mapping this to our project: <code>ballpen_production_line.py</code> is the <strong>Back End</strong> — pure logic, no pixels. <code>ballpen_animation.py</code> is the <strong>Front End</strong>, and because it visualizes a factory in real time with live counters and station status, it is essentially a small <strong>HMI</strong>. The two communicate through a shared data model (items, bins, counters), which is exactly how a real PLC publishes tags that an HMI subscribes to.</p>
+	</div>
+	<div class="exercises">
+		<h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+		<ol>
+			<li>List three responsibilities of a Back End and three of a Front End in any system you use daily (e.g., your bank app, an online store). Identify which side handles authentication, which renders the cart, and which validates a price.</li>
+			<li>Find a photo of a real industrial HMI online and identify at least four pieces of information it shows the operator. For each, classify it as <em>status</em>, <em>alarm</em>, <em>metric</em>, or <em>control</em>.</li>
+			<li>Explain in one paragraph why coupling the Back End and Front End tightly (e.g., letting the UI directly read a sensor) is dangerous in a factory. Use the words <em>safety</em>, <em>latency</em>, and <em>testability</em>.</li>
+		</ol>
+	</div>
+</div>
+
+<div class="module">
+	<h2>2. Ball Pen Production - The Back End (<code>ballpen_production_line.py</code>)</h2>
+	<div class="theory">
+		<h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+		<div style="text-align: center;">
+			<img src="images/BIC_Cristal_Schema_894b311f96.png" alt="BIC Cristal Pen Schema" style="width: 60%;" />
+		</div>
+		<p>The back end models the factory as a set of cooperating objects. <strong>Dataclasses</strong> (<code>Component</code>, <code>BallPen</code>) describe what things <em>are</em> — plain data with a name, a serial number, and a quality. An <strong>Enum</strong> (<code>Quality.OK</code>, <code>Quality.DEFECTIVE</code>) replaces fragile string flags with values the interpreter can check. An <strong>Abstract Base Class</strong> (<code>Station</code>) defines the contract every workstation must honor: <em>given an input, return an output or None</em>. Concrete subclasses (<code>ComponentMaker</code>, <code>QualityControl</code>, <code>AssemblyStation</code>, <code>FinalInspection</code>, <code>Packaging</code>) each implement <code>process</code> in their own way.</p>
+		<p>The <code>ProductionLine</code> class is a <strong>composition</strong>, not an inheritance: it <em>has</em> stations, it does not <em>act as</em> one. Between QC and Assembly we keep <code>collections.deque</code> buffers — the software equivalent of a physical bin holding parts between machines. The orchestrator's <code>run</code> method is small because each part of the system has a single, well-defined responsibility — a textbook example of the <em>Single Responsibility Principle</em>.</p>
+		<p>Randomness simulates manufacturing variance: each maker has a defect rate (~5%) and assembly itself has a small failure rate (~2%). QC stations short-circuit defective items, returning <code>None</code> to signal "discard." This makes the line behave like a real one: the throughput is below the theoretical maximum, and the system must produce slightly more than the target to compensate for losses.</p>
+		<div style="text-align: center; margin-top: 20px;">
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/-OxsoPxc8SY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+		</div>
+		<div style="text-align: center; margin-top: 20px;">
+			<a href="https://github.com/AdvancedProgrammingSRH/BallPenProductionLine" target="_blank">Production Line Repo</a>
+		</div>
+	</div>
+	<div class="exercises">
+		<h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+		<ol>
+			<li>Run <code>ballpen_production_line.py</code> with <code>random.seed(42)</code> and confirm the report shows 5 shipped pens. Then change the seed to <code>1</code> and explain why the rejection counts differ even though the code is identical.</li>
+			<li>Add a fifth component, <code>spring</code>, to support a retractable pen. You will need to update <code>COMPONENT_NAMES</code>, the <code>BallPen</code> dataclass, the <code>is_complete</code> check, and the assembly logic. Show that the report now lists makers and QC stations for the spring.</li>
+			<li>Raise every component's <code>defect_rate</code> to <code>0.4</code>. Predict what will happen to the number of components made per shipped pen, then run the script and compare your prediction with the actual ratio.</li>
+			<li>Write a <code>pytest</code> test that monkey-patches <code>random.random</code> to always return <code>0.0</code> (forcing every part to be defective) and asserts that the line never ships a pen — i.e., the <code>run</code> loop should be stopped via a maximum-attempts guard you add.</li>
+			<li>Refactor the <code>Station</code> hierarchy so that <code>process</code> always returns a list (possibly empty) instead of "an item or None." Explain in a comment why returning a list is more flexible if a station ever needs to emit more than one output.</li>
+		</ol>
+	</div>
+</div>
+
+<div class="module">
+	<h2>3. Ball Pen Animation - The HMI (<code>ballpen_animation.py</code>)</h2>
+	<div class="theory">
+		<h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+		<p>The animation is a Front End on top of the same simulation idea, written with <code>matplotlib.animation.FuncAnimation</code>. The fundamental pattern is the <strong>game loop</strong>: every tick we (1) clear the previous frame's transient drawings, (2) spawn new inputs, (3) advance state, (4) make decisions, and (5) render. This is the same rhythm used by every video game, every web UI library, and every industrial HMI on Earth.</p>
+		<p>Each in-flight item carries a <code>stage</code> field — <code>"to_qc"</code>, <code>"to_bin"</code>, <code>"falling"</code>, <code>"to_assembly"</code> — and the renderer reads that field to decide where to draw it. This is a <strong>Finite State Machine</strong>. To synchronize the four components arriving at Assembly we use a <strong>counting semaphore</strong> (<code>arrivals_at_assembly</code>): when it reaches 4, we decrement by 4 and emit a finished pen. In a multithreaded version this would become an <code>asyncio.Event</code> or <code>threading.Semaphore</code>, but the logic is identical.</p>
+		<p>Crucially, the state (lists of items, bin counts, counters) is decoupled from the drawing (circles, labels, station boxes). The renderer is a pure function of the state. This is the same principle behind React, Vue, and modern HMI frameworks like Ignition or WinCC: <em>the UI is a derivation of the data, not the source of truth</em>. Swap matplotlib for an HTML canvas and the simulator does not change a line.</p>
+	</div>
+	<div class="exercises">
+		<h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+		<ol>
+			<li>Run <code>ballpen_animation.py</code> and verify that <code>ballpen_production_line.gif</code> is produced. Open the GIF and identify, by visual inspection, at least one component being rejected (it should fall off the conveyor at QC).</li>
+			<li>Increase <code>SPEED</code> from <code>0.13</code> to <code>0.25</code> and decrease <code>TOTAL_FRAMES</code> to <code>150</code>. Explain how throughput per frame changed and why the visual quality may suffer.</li>
+			<li>Add an <em>alarm</em> behavior worthy of an HMI: when the <code>rejected</code> counter exceeds 5, change the title text to red and append <strong>" - HIGH REJECT RATE"</strong>. This is your first taste of HMI alarm conditions.</li>
+			<li>Replace the static <code>"Bin"</code> label with a colored bar whose height grows with the bin count. Cap it at 5 units tall, and turn the bar yellow when it reaches the top. This trains your eye to see <em>state</em> at a glance — the cardinal HMI design rule.</li>
+			<li>Decouple the simulation from the renderer cleanly: extract a <code>SimulationState</code> class that holds <code>items</code>, <code>bins</code>, and <code>counters</code>, with methods <code>tick()</code> and <code>snapshot()</code>. Have the animation only call <code>snapshot()</code>. Justify in a comment how this separation would let you swap the renderer for a Tkinter or web HMI without touching simulation code.</li>
+		</ol>
+	</div>
+</div>
+
+								<ul class="copyright">
+									<li>&copy; All rights reserved.</li>
+								</ul>
+							</div>
+						</section>
+
+				</div>
+
+			<!-- Scripts -->
+				<script src="assets/js/jquery.min.js"></script>
+				<script src="assets/js/jquery.scrollex.min.js"></script>
+				<script src="assets/js/browser.min.js"></script>
+				<script src="assets/js/breakpoints.min.js"></script>
+				<script src="assets/js/util.js"></script>
+				<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
