@@ -124,6 +124,165 @@
 	</div>
 </div>
 
+<div class="module">
+	<h2>4. Manufacturing Execution Systems (MES)</h2>
+	<div class="theory">
+		<h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+		<p>A <strong>Manufacturing Execution System (MES)</strong> is the software layer that sits between the shop-floor machines (PLCs, sensors, HMIs) and the enterprise business systems (ERP, supply chain). Its job is to track, coordinate, and optimize everything that happens on the factory floor in real time: which work order is running on which machine, how many good parts have been produced, where each batch of material is, and whether the line is meeting its targets right now &mdash; not tomorrow morning when someone runs a report (<a href="http://www.mescenter.org/en/articles/108-mes-manufacturing-execution-system" target="_blank">MES Center</a>).</p>
+		<p>The ISA-95 standard divides factory software into four levels. Level 1 and 2 are the physical devices and control systems (sensors, PLCs, SCADA). Level 3 is the MES &mdash; it manages operations minute-to-minute. Level 4 is the ERP (SAP, Oracle) &mdash; it manages business planning day-to-week. Without the MES in between, the ERP has no live view of the factory and the machines have no awareness of production orders.</p>
+		<p>The core functions a MES provides are:</p>
+		<ul>
+			<li><strong>Work order management</strong> &mdash; dispatches production orders to the right machine at the right time and tracks their progress to completion.</li>
+			<li><strong>Genealogy &amp; traceability</strong> &mdash; records which materials, operators, and machines touched every unit, so a recall can be scoped to exactly the affected batch.</li>
+			<li><strong>Quality management</strong> &mdash; captures inline inspection results, triggers holds on suspect lots, and feeds SPC (Statistical Process Control) charts.</li>
+			<li><strong>Performance monitoring (OEE)</strong> &mdash; aggregates E10 machine states, cycle times, and yield data into OEE dashboards visible to operators and managers simultaneously.</li>
+			<li><strong>Data collection &amp; historians</strong> &mdash; stores time-stamped process data (temperatures, pressures, speeds) that engineers mine for root-cause analysis and process improvement.</li>
+		</ul>
+		<p>Well-known commercial MES platforms include <strong>Siemens Opcenter</strong> (formerly SIMATIC IT), <strong>Rockwell FactoryTalk</strong>, <strong>SAP ME / SAP DMC</strong>, <strong>Tulip</strong> (no-code, popular in discrete manufacturing), and <strong>Ignition</strong> by Inductive Automation (which doubles as an HMI/SCADA platform). In semiconductors, <strong>Applied Materials PROMIS</strong> and <strong>PDF Solutions Cimetrix</strong> are industry staples. Open-source options like <strong>OpenMES</strong> and <strong>Odoo Manufacturing</strong> exist for smaller operations.</p>
+		<p>The stack you build in the next section &mdash; a Python producer writing to InfluxDB, visualized in Grafana &mdash; is a miniature MES historian. It collects the same kind of time-stamped machine data that industrial historians (OSIsoft PI, InfluxDB Enterprise, Timescale) store in production at scale. The main difference is that a real MES also enforces work orders, manages operator sign-offs, and integrates with the ERP &mdash; concerns that belong above the data-collection layer you are building.</p>
+	</div>
+	<div class="exercises">
+		<h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+		<ol>
+			<li>Look up the ISA-95 standard (a one-page summary is enough). Draw a four-level pyramid showing which software category lives at each level. Place our <code>ballpen_production_line.py</code>, <code>ballpen_animation.py</code>, and the InfluxDB/Grafana stack at the correct levels and justify each placement in one sentence.</li>
+			<li>Choose one commercial MES from the list above and find its product page. Identify three features it advertises. For each feature, name the equivalent concept in our ball-pen simulation (e.g., &ldquo;work order&rdquo; maps to the <code>run(target)</code> call, &ldquo;genealogy&rdquo; maps to serial numbers on <code>Component</code>).</li>
+			<li>A recall is issued for pens assembled between 14:00 and 15:00 yesterday using barrel components from lot &ldquo;LOT-42&rdquo;. Describe in plain English the data a MES would need to store &mdash; and what queries it would run &mdash; to produce a list of affected serial numbers. What fields would you add to the <code>Component</code> dataclass to support this?</li>
+			<li>OEE = Availability &times; Performance &times; Quality. A line runs 8 hours, has 45 minutes of unscheduled downtime, produces at 90% of rated speed, and yields 96% good parts. Calculate the OEE. Then identify which factor is the weakest link and suggest one change to <code>producer.py</code> or <code>ballpen_production_line.py</code> that would simulate improving it.</li>
+		</ol>
+	</div>
+</div>
+
+<div class="module">
+	<h2>5. Live Factory Telemetry: Python &rarr; InfluxDB &rarr; Grafana</h2>
+	<div class="theory">
+		<h3><span class="icon">📘</span> Theory (Deeper Concepts)</h3>
+
+		<h4>E10 Machine State &mdash; What It Is and Why It Matters</h4>
+		<p>SEMI E10 is the semiconductor-industry standard that defines how to classify every second of a machine&rsquo;s time into exactly one of six mutually exclusive states (<a href="https://www.systema.com/blog/e10-unmasked-part-2" target="_blank">E10 Unmasked</a>). The three states used in our demo are:</p>
+		<ul>
+			<li><strong>Productive</strong> &mdash; the machine is processing parts. This is the only state that generates revenue.</li>
+			<li><strong>Standby</strong> &mdash; the machine is ready but waiting for material, an operator, or a downstream station. The line is running; this machine is idle.</li>
+			<li><strong>Unscheduled Downtime</strong> &mdash; the machine failed unexpectedly. No parts are moving and no recovery was planned.</li>
+		</ul>
+		<p>These states are the building blocks of <strong>OEE (Overall Equipment Effectiveness)</strong>, the single most-watched KPI in manufacturing. OEE multiplies three ratios: Availability (how much of planned time the machine actually ran), Performance (how fast it ran versus its rated speed), and Quality (good parts out of total parts started). A world-class line targets OEE &ge; 85%. A machine stuck in Unscheduled Downtime drags Availability toward zero, collapsing OEE regardless of how fast or accurately the other stations run.</p>
+		<p>Tracking E10 states in a time-series database lets a plant engineer answer questions that a simple counter cannot: <em>How long did the bottleneck spend in Standby yesterday afternoon? Did Unscheduled Downtime cluster around a shift change? Is Productive time trending up or down across the last week?</em> These are exactly the questions Grafana&rsquo;s state-timeline panel makes visible at a glance.</p>
+
+		<h4>How the Pieces Connect</h4>
+		<pre><code>producer.py (your laptop)
+      |  HTTP POST /api/v2/write   (port 8086)
+      v
+   InfluxDB  (Docker container)
+      |  Flux queries
+      v
+   Grafana   (Docker container, port 3000) --> your browser</code></pre>
+		<p>Your script never talks to Grafana directly &mdash; it only writes to InfluxDB. Grafana pulls from InfluxDB on every refresh. That decoupling is exactly the pattern used in real factories.</p>
+
+		<h4>Step 1 &mdash; Start InfluxDB and Grafana</h4>
+		<p>Save the following as <code>docker-compose.yml</code> in a new folder, then run <code>docker compose up -d</code> in that folder:</p>
+		<pre><code>services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    ports: ["8086:8086"]
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: admin12345
+      DOCKER_INFLUXDB_INIT_ORG: lecture
+      DOCKER_INFLUXDB_INIT_BUCKET: factory
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: my-super-secret-token
+    volumes: ["influx-data:/var/lib/influxdb2"]
+
+  grafana:
+    image: grafana/grafana:11.0.0
+    container_name: grafana
+    ports: ["3000:3000"]
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    depends_on: [influxdb]
+    volumes: ["grafana-data:/var/lib/grafana"]
+
+volumes:
+  influx-data:
+  grafana-data:</code></pre>
+		<p>InfluxDB is now on <code>http://localhost:8086</code>, Grafana on <code>http://localhost:3000</code> (login <code>admin</code> / <code>admin</code>).</p>
+
+		<h4>Step 2 &mdash; Python Script That Generates Data</h4>
+		<p>Install the client once:</p>
+		<pre><code>pip install influxdb-client</code></pre>
+		<p>Save the following as <code>producer.py</code> and run it with <code>python producer.py</code>. It prints one row per second and writes the same row to InfluxDB:</p>
+		<pre><code>import time, math, random
+from datetime import datetime, timezone
+from influxdb_client import InfluxDBClient, Point
+from influxdb_client.client.write_api import SYNCHRONOUS
+
+URL    = "http://localhost:8086"
+TOKEN  = "my-super-secret-token"
+ORG    = "lecture"
+BUCKET = "factory"
+
+client = InfluxDBClient(url=URL, token=TOKEN, org=ORG)
+write  = client.write_api(write_options=SYNCHRONOUS)
+
+print("Sending data to InfluxDB. Ctrl+C to stop.")
+t = 0
+parts_total = 0
+states = ["Productive", "Standby", "Unscheduled Downtime"]
+
+try:
+    while True:
+        temperature = 60 + 5 * math.sin(t / 10) + random.uniform(-0.3, 0.3)
+        if random.random() &lt; 0.4:
+            parts_total += 1
+        state = random.choices(states, weights=[0.85, 0.10, 0.05])[0]
+
+        point = (
+            Point("machine")
+            .tag("line", "A")
+            .field("temperature", temperature)
+            .field("parts_total", parts_total)
+            .field("state", state)
+            .time(datetime.now(timezone.utc))
+        )
+        write.write(bucket=BUCKET, record=point)
+        print(f"t={t:4d}  T={temperature:5.2f}  parts={parts_total}  state={state}")
+        t += 1
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("Stopped.")
+finally:
+    client.close()</code></pre>
+
+		<h4>Step 3 &mdash; Wire Grafana to InfluxDB (One-Time)</h4>
+		<ol>
+			<li>Open <code>http://localhost:3000</code> and log in.</li>
+			<li>Left sidebar &rarr; <strong>Connections &rarr; Data sources &rarr; Add data source &rarr; InfluxDB</strong>.</li>
+			<li>Set: <strong>Query language</strong> = <code>Flux</code>, <strong>URL</strong> = <code>http://influxdb:8086</code> (the container name, reachable inside Docker&rsquo;s network), <strong>Organization</strong> = <code>lecture</code>, <strong>Token</strong> = <code>my-super-secret-token</code>, <strong>Default Bucket</strong> = <code>factory</code>.</li>
+			<li>Click <strong>Save &amp; test</strong> &mdash; you should see &ldquo;datasource is working&rdquo;.</li>
+		</ol>
+
+		<h4>Step 4 &mdash; Build a Panel</h4>
+		<p>Left sidebar &rarr; <strong>Dashboards &rarr; New &rarr; Add visualization &rarr; pick the InfluxDB datasource</strong>.</p>
+		<p>Paste this Flux query for the <strong>temperature</strong> time-series panel:</p>
+		<pre><code>from(bucket: "factory")
+  |&gt; range(start: -5m)
+  |&gt; filter(fn: (r) =&gt; r._measurement == "machine" and r._field == "temperature")
+  |&gt; filter(fn: (r) =&gt; r.line == "A")</code></pre>
+		<p>Hit <strong>Refresh</strong> &mdash; the line chart moves as long as <code>producer.py</code> is running. Set auto-refresh to <code>5s</code> (top right) for a live feel.</p>
+		<p>For the <strong>parts produced</strong> panel: change the field filter to <code>parts_total</code> and pick the <strong>Stat</strong> visualization. For the <strong>E10 state</strong> panel: filter on <code>state</code> and pick the <strong>State timeline</strong> visualization.</p>
+	</div>
+	<div class="exercises">
+		<h3><span class="icon">💻</span> Exercises (Deeper Focus)</h3>
+		<ol>
+			<li>Complete Steps 1&ndash;4 above from scratch. Take a screenshot of all three panels running live. On the state timeline, identify at least one Unscheduled Downtime interval and estimate how many seconds it lasted.</li>
+			<li>In <code>producer.py</code>, find the <code>weights=[0.85, 0.10, 0.05]</code> line and change it to <code>[0.50, 0.20, 0.30]</code>. Restart the producer and observe how the temperature panel reacts (hint: a machine in downtime typically cools down). Explain the relationship in one paragraph.</li>
+			<li>Add a fourth Grafana panel showing a <em>pie chart</em> of total time spent in each E10 state over the last 15 minutes. Write the Flux query needed to group by the <code>state</code> field and count rows. What percentage of time was Productive?</li>
+			<li>Add a second production line: copy <code>producer.py</code> to <code>producer_B.py</code>, change the tag line to <code>.tag("line", "B")</code>, and run both scripts simultaneously. In Grafana, duplicate the state-timeline panel and filter one on <code>r.line == "A"</code> and the other on <code>r.line == "B"</code>. Describe one difference you observe between the two lines&rsquo; downtime patterns.</li>
+			<li>Calculate the simulated OEE for Line A over a 5-minute window: use the Grafana data to estimate Availability (Productive seconds &divide; 300). Set Performance and Quality to 1.0 for now. Report the OEE percentage, then explain what fields you would add to <code>producer.py</code> to make Performance and Quality measurable as well.</li>
+		</ol>
+	</div>
+</div>
+
 								<ul class="copyright">
 									<li>&copy; All rights reserved.</li>
 								</ul>
