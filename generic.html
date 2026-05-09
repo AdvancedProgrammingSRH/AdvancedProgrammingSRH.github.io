@@ -148,7 +148,139 @@
 							</div>
 
 					</section>
-					
+				<!-- Exam and Final Project -->
+					<section id="exam-final">
+						<div class="wrapper">
+							<div class="inner">
+
+								<section>
+									<h3 class="major">Exam and Final Project</h3>
+
+									<h4>Course Evaluation</h4>
+									<p>Your final grade is composed of two parts:</p>
+									<ul>
+										<li><strong>30% &mdash; Theoretical Exam:</strong> 5 questions selected randomly from the question bank below.</li>
+										<li><strong>70% &mdash; Final Project:</strong> Implementation of the ink marker production line simulation.</li>
+									</ul>
+
+									<hr />
+
+									<h4>Course Calendar</h4>
+									<table>
+										<thead>
+											<tr><th>Week</th><th>Date</th><th>Activity</th></tr>
+										</thead>
+										<tbody>
+											<tr><td>Week 1</td><td>18.04</td><td>Class</td></tr>
+											<tr><td>Week 2</td><td>25.04</td><td>Class</td></tr>
+											<tr><td>Week 3</td><td>02.05</td><td>Class</td></tr>
+											<tr><td>Week 4</td><td>09.05</td><td>Class</td></tr>
+											<tr><td>Week 5</td><td>16.05</td><td>Class</td></tr>
+											<tr><td>Week 6</td><td>23.05</td><td>Focus time: develop your final project</td></tr>
+											<tr><td>Week 7</td><td>30.05</td><td>Focus time: develop your final project</td></tr>
+											<tr><td>Week 8</td><td>06.06</td><td>Summary Class and Q&amp;A for your project implementation &mdash; <strong>Theoretical Exam date #1</strong> (if you cannot attend on 13.06)</td></tr>
+											<tr><td>Week 9</td><td>13.06</td><td><strong>Theoretical Exam date #2</strong></td></tr>
+											<tr><td>Week 10</td><td>20.06</td><td>Deadline to submit your final project by email. Grades will be uploaded within 7 days.</td></tr>
+										</tbody>
+									</table>
+
+									<hr />
+
+									<h4>Final Project Submission</h4>
+									<p>To submit the final project (ink marker production line), send an email containing:</p>
+									<ol>
+										<li>A <strong>PDF document</strong> explaining how your project was implemented.</li>
+										<li>A <strong>link to your website</strong> where the project is hosted and described.</li>
+									</ol>
+
+									<hr />
+
+									<h4>Theoretical Exam &mdash; Question Bank</h4>
+									<p>The final exam questions will be published on <strong>Saturday 16.06</strong>. The questions below are a preview sample from the full bank of 20. Use them to prepare for topics covered in the Version Control and Production Line modules.</p>
+
+									<h5>Version Control (Git)</h5>
+									<!--
+									<p><strong>Q1.</strong> <strong>In the kitchen analogy, what does the &ldquo;staging area&rdquo; represent and which Git command moves a file into it?</strong><br />
+									The staging area is the <em>cutting board</em> &mdash; ingredients prepped and ready to be plated. The command <code>git add &lt;file&gt;</code> moves a file from the working directory (counter) onto the staging area.</p>
+
+									<p><strong>Q2.</strong> <strong>What does <code>git init</code> do, and what artifact does it create in your project folder?</strong><br />
+									<code>git init</code> turns an ordinary directory into a Git repository. It creates a hidden <code>.git</code> folder where every future change is recorded &mdash; analogous to a head chef setting up a private notebook in an empty kitchen.</p>
+
+									<p><strong>Q3.</strong> <strong>Explain the three-zone mental model of Git: working directory, staging area, and commit history.</strong><br />
+									The working directory (counter) is where you actively edit files. <code>git add</code> moves chosen changes to the staging area (cutting board). <code>git commit</code> permanently snapshots the staged content into the commit history (cookbook), recording who, when, and what.</p>
+									-->
+
+									<!--
+									<p><strong>Q4.</strong> <strong>What is the difference between <code>git diff</code> and <code>git status</code>?</strong><br />
+									<code>git status</code> lists <em>which</em> files have changed or are untracked. <code>git diff</code> shows the actual line-by-line differences between the working directory and the last commit.</p>
+
+									<p><strong>Q5.</strong> <strong>What does <code>git restore &lt;file&gt;</code> do and when would you use it?</strong><br />
+									It discards all uncommitted changes to a file and resets it to the last committed state. Use it when your edits were a mistake and you want to return to the last known good version.</p>
+									-->
+
+									<p><strong>A.</strong> <strong>What is a Git branch and why are branches described as &ldquo;cheap and isolated&rdquo;?</strong><br />
+									A branch is a pointer to a parallel line of commits &mdash; an experimental kitchen where you can work freely without touching the main menu. Branches are cheap because Git stores only deltas between commits, and isolated because changes on one branch never affect another.</p>
+
+									<!--
+
+									<p><strong>Q7.</strong> <strong>What is a merge conflict and how do you resolve one?</strong><br />
+									A merge conflict occurs when two branches made different changes to the same part of a file and Git cannot decide which wins. You resolve it by editing the conflict markers (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> / <code>=======</code> / <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>) to the intended result, then staging and committing the resolved file.</p>
+
+									<p><strong>Q8.</strong> <strong>What is a &ldquo;remote&rdquo; in Git, and what do <code>git push</code> and <code>git pull</code> do?</strong><br />
+									A remote is a shared copy of the repository hosted on a server (e.g., GitHub). <code>git push</code> sends local commits up to the remote. <code>git pull</code> fetches and integrates new commits from the remote into your local branch.</p>
+									-->
+
+									<p><strong>B.</strong> <strong>What does <code>git clone &lt;url&gt;</code> do and how is it different from <code>git init</code>?</strong><br />
+									<code>git clone</code> downloads an existing repository including its full commit history onto your local machine. <code>git init</code> starts a brand-new, empty repository. Use <code>clone</code> when joining an existing project, <code>init</code> when starting from scratch.</p>
+
+									<!--
+									<p><strong>Q10.</strong> <strong>What is a Pull Request (PR) and what purpose does it serve in a team workflow?</strong><br />
+									A Pull Request is a proposal to merge a feature branch into the main branch. It opens a discussion where teammates review code, leave comments, and approve before the changes become official &mdash; the primary peer-review mechanism in collaborative Git workflows.</p>
+									-->
+
+									<h5>Production Line &amp; Software Architecture</h5>
+									<!--
+									<p><strong>Q11.</strong> <strong>What is an HMI (Human-Machine Interface) and what are the three rules of good HMI design?</strong><br />
+									An HMI is the operator&rsquo;s window into the machine&rsquo;s back-end state. The three rules are: (1) show only what the operator needs <em>right now</em>, (2) make abnormal states visually unmistakable, and (3) never let the screen lie about the machine&rsquo;s state.</p>
+
+									<p><strong>Q12.</strong> <strong>What is the difference between Back End and Front End, and how do they map to the ball pen simulation files?</strong><br />
+									The Back End holds data, runs rules, and makes decisions (invisible to the user). The Front End presents state and forwards user intent. <code>ballpen_production_line.py</code> is the Back End; <code>ballpen_animation.py</code> is the Front End / HMI.</p>
+
+									<p><strong>Q13.</strong> <strong>What is the role of the Abstract Base Class <code>Station</code> in the ball pen back end?</strong><br />
+									<code>Station</code> defines the contract every workstation must honor: given an input, return an output or <code>None</code>. Concrete subclasses implement <code>process</code> their own way, letting the orchestrator treat every station identically and enforcing the Single Responsibility Principle.</p>
+									-->
+
+									<p><strong>C.</strong> <strong>What is the SEMI E10 standard and what are the three machine states used in the production-line demo?</strong><br />
+									SEMI E10 classifies every second of a machine&rsquo;s time into mutually exclusive states. The three in the demo are: <strong>Productive</strong> (processing parts), <strong>Standby</strong> (ready but waiting), and <strong>Unscheduled Downtime</strong> (unexpected failure).</p>
+
+									<!--
+									<p><strong>Q15.</strong> <strong>What does OEE stand for, how is it calculated, and what is the world-class target?</strong><br />
+									OEE = Availability &times; Performance &times; Quality. A world-class line targets OEE &ge; 85%. Unscheduled Downtime collapses Availability and therefore OEE regardless of how well other stations perform.</p>
+									-->
+
+									<p><strong>D.</strong> <strong>What is a Manufacturing Execution System (MES) and at which ISA-95 level does it operate?</strong><br />
+									A MES tracks, coordinates, and optimizes everything on the factory floor in real time. It operates at <strong>Level 3</strong> of ISA-95, sitting between Level 1&ndash;2 (PLCs/SCADA) and Level 4 (ERP/business planning).</p>
+
+									<!--
+									<p><strong>Q17.</strong> <strong>What is a Finite State Machine (FSM) and where is one applied in <code>ballpen_animation.py</code>?</strong><br />
+									An FSM is a model where an entity occupies exactly one of a finite set of states at a time. In <code>ballpen_animation.py</code>, each in-flight item has a <code>stage</code> field (<code>&quot;to_qc&quot;</code>, <code>&quot;to_bin&quot;</code>, <code>&quot;falling&quot;</code>, <code>&quot;to_assembly&quot;</code>) that the renderer reads to decide where to draw it.</p>
+
+									<p><strong>Q18.</strong> <strong>In the InfluxDB/Grafana stack, which component writes data, which stores it, and which visualizes it?</strong><br />
+									<code>producer.py</code> writes data via HTTP to <strong>InfluxDB</strong> (storage). <strong>Grafana</strong> queries InfluxDB and renders dashboards. The producer never talks to Grafana directly &mdash; mirroring real factory architectures where data source and visualization are independently replaceable.</p>
+
+									<p><strong>Q19.</strong> <strong>What is the &ldquo;game loop&rdquo; pattern in <code>ballpen_animation.py</code> and what are its five steps per frame?</strong><br />
+									Each tick: (1) clear previous transient drawings, (2) spawn new inputs, (3) advance state, (4) make decisions, (5) render. This rhythm is the same used by video games, web UI frameworks, and industrial HMIs worldwide.</p>
+
+									<p><strong>Q20.</strong> <strong>Why does the ball pen production line produce more components than the target number of finished pens?</strong><br />
+									Randomness simulates manufacturing variance: each <code>ComponentMaker</code> has a ~5% defect rate and <code>AssemblyStation</code> has a ~2% failure rate. Defective items are rejected at QC (returning <code>None</code>), so more parts must be started than the target to meet the shipped-pen goal.</p>
+									-->
+
+								</section>
+
+							</div>
+						</div>
+					</section>
+
 				<!-- Footer -->
 					<section id="footer">
 						<div class="inner">
