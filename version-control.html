@@ -288,7 +288,9 @@ git push -u origin master</code></pre>
 git pull
 
 # Create a branch for today's experiment
-git switch -c lemon-zest-pasta
+git checkout master
+git branch lemon-zest-pasta
+git checkout lemon-zest-pasta
 
 # Edit the recipe
 echo "Boil salted water. Add pasta. Drain. Toss with butter, parmesan, and lemon zest." > spaghetti.txt
@@ -298,11 +300,7 @@ git add spaghetti.txt
 git commit -m "Add lemon zest pasta variation"
 
 # Push the branch to the shared cookbook
-git push -u origin lemon-zest-pasta
-
-# Open a pull request on GitHub asking the head chef to taste-test and merge</code></pre>
-
-									<p>A <strong>pull request</strong> (PR) is a polite letter to the team that says: "I cooked something on my branch. Please taste it, tell me what you think, and if you like it, merge it into the master menu." It's how teams review each other's work before it becomes official.</p>
+git push -u origin lemon-zest-pasta</code></pre>
 
 									<hr />
 
